@@ -20,7 +20,7 @@ public class CategoryController {
     @GetMapping
     public String showAllCategories(Model model) {
         List<Category> categories = categoryService.getAllCategories();
-        model.addAttribute("categories");
+        model.addAttribute("categories",categories);
         return "category/list";
     }
 
@@ -52,6 +52,7 @@ public class CategoryController {
         return "category/edit";
     }
 
+
     @PostMapping("/edit/{id}")
     public String editCategory(@PathVariable("id") Long categoryId, @Valid @ModelAttribute("category") Category updatedCategory, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -62,4 +63,5 @@ public class CategoryController {
         categoryService.updateCategory(category);
         return "redirect:/categories";
     }
+
 }
