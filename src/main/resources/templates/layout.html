@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My app</title>
+    <title>My App</title>
     <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -10,8 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">HUTECH</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,17 +22,33 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="/books">List Book</a> </li>
-                    <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/categories">List Category</a> </li>
-                    <li class="nav-item"><a class="nav-link" href="/categories/add">Add Category</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/books">List Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/books/add">Add Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">List Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories/add">Add Category</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-outline-danger" type="submit">Logout</button>
+                        </form>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-primary" href="/login">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 <div th:insert="~{::${content}}">
-    <!-- Noi Dung Trang Con-->
+    <!-- NỘI DUNG TRANG CON -->
 </div>
 <footer th:fragment="footer">
     <script th:src="@{/js/bootstrap.min.js}"></script>
