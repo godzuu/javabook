@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
             <th>Author</th>
             <th>Price</th>
             <th>Category</th>
-            <th>Action</th>
+            <th sec:authorize="hasAnyAuthority('AD')">Action</th>
         </tr>
         <tr th:each="book : ${book}" class="book">
             <td th:text="${book.id}"></td>
@@ -32,7 +32,7 @@
             <td th:text="${book.author}"></td>
             <td th:text="${book.price}"></td>
             <td th:text="${book.category.name}"></td>
-            <td>
+            <td sec:authorize="hasAnyAuthority('AD')">
                 <a th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a> |
                 <a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('Are you sure ?')">Delete</a>
             </td>
